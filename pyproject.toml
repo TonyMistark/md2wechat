@@ -1,0 +1,13 @@
+[project]
+name = "md2wechat"
+version = "0.1.0"
+description = "Convert Markdown to WeChat-compatible HTML with inline styles"
+requires-python = ">=3.12"
+dependencies = [
+    "markdown>=3.7",
+    "css-inline>=0.14",
+    "pygments>=2.18",
+]
+
+[project.scripts]
+md2wechat = "md2wechat:main"
