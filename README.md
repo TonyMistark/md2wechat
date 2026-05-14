@@ -1,5 +1,7 @@
 # md2wechat
 
+[中文](README.zh-CN.md)
+
 Convert Markdown files to WeChat Official Account (微信公众号) compatible HTML, with CSS inlining so styles survive WeChat's editor.
 
 ## Features
