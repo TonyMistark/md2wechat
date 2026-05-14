@@ -52,43 +52,41 @@ md2wechat input.md -s github       # GitHub theme
 md2wechat --help                   # list all options
 ```
 
-## Claude Code skill
+## Claude Code & OpenCode skill
 
-Claude Code custom skills are defined as markdown files in `.claude/skills/` (project) or `~/.claude/skills/` (global). This repo includes the skill file at `.claude/skills/md2wechat.md`.
+This repo includes a skill file at `skills/md2wechat/md2wechat.md`. Copy it into your local skills directory to enable `/md2wechat` as a slash command.
 
-### Setup
-
-**If you cloned the repo**, the skill is ready automatically — just open this directory as a Claude Code workspace.
-
-**If you installed via `uv tool install`**, download the skill file separately:
+### Claude Code
 
 ```bash
-mkdir -p ~/.claude/skills
-curl -o ~/.claude/skills/md2wechat.md \
-  https://raw.githubusercontent.com/liuliqiu/md2wechat/main/.claude/skills/md2wechat.md
+# Project-level (only this project)
+mkdir -p .claude/skills/md2wechat
+cp skills/md2wechat/md2wechat.md .claude/skills/md2wechat/
+
+# Or global (all projects)
+mkdir -p ~/.claude/skills/md2wechat
+cp skills/md2wechat/md2wechat.md ~/.claude/skills/md2wechat/
 ```
 
-Then restart Claude Code, and `/md2wechat` will be available in all projects:
+### OpenCode
+
+```bash
+# Project-level
+mkdir -p .opencode/skills/md2wechat
+cp skills/md2wechat/md2wechat.md .opencode/skills/md2wechat/
+
+# Or global
+mkdir -p ~/.opencode/skills/md2wechat
+cp skills/md2wechat/md2wechat.md ~/.opencode/skills/md2wechat/
+```
+
+### Usage
+
+Once the skill is in place and `md2wechat` CLI is installed:
 
 ```
 /md2wechat article.md
 ```
-
-Claude will run `md2wechat` with the right arguments based on context.
-
-## OpenCode skill
-
-The skill definition lives in `.opencode/skills/md2wechat.md`. OpenCode picks it up automatically when this project is opened as workspace.
-
-### Setup
-
-1. Install `md2wechat` as a global tool (see Installation above)
-
-2. Open this project in OpenCode — the skill registers automatically
-
-3. Ask Claude to convert:
-
-> Convert this markdown article to WeChat HTML
 
 Claude will run `md2wechat` with the right arguments based on context.
 
@@ -125,12 +123,9 @@ WeChat's article editor strips `<style>` tags and external stylesheets — only 
 │       ├── __init__.py   # style registry
 │       ├── default.py    # WeChat green theme
 │       └── github.py     # GitHub theme
-├── .claude/
-│   └── skills/
-│       └── md2wechat.md  # Claude Code skill definition
-├── .opencode/
-│   └── skills/
-│       └── md2wechat.md  # OpenCode skill definition
+├── skills/
+│   └── md2wechat/
+│       └── md2wechat.md  # skill definition (Claude Code / OpenCode)
 ├── pyproject.toml
 └── uv.lock
 ```

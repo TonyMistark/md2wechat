@@ -52,43 +52,41 @@ md2wechat input.md -s github       # GitHub 主题
 md2wechat --help                   # 查看所有选项
 ```
 
-## Claude Code 技能
+## Claude Code & OpenCode 技能
 
-Claude Code 的自定义技能通过 markdown 文件定义，放在 `.claude/skills/`（项目级）或 `~/.claude/skills/`（全局）。本仓库已包含技能文件 `.claude/skills/md2wechat.md`。
+本仓库提供技能文件 `skills/md2wechat/md2wechat.md`。将其复制到本地的 skills 目录即可启用 `/md2wechat` 斜杠命令。
 
-### 配置方式
-
-**如果已克隆仓库**，技能自动生效——将此目录作为 Claude Code 工作区打开即可。
-
-**如果通过 `uv tool install` 安装**，需单独下载技能文件：
+### Claude Code
 
 ```bash
-mkdir -p ~/.claude/skills
-curl -o ~/.claude/skills/md2wechat.md \
-  https://raw.githubusercontent.com/liuliqiu/md2wechat/main/.claude/skills/md2wechat.md
+# 项目级（仅当前项目生效）
+mkdir -p .claude/skills/md2wechat
+cp skills/md2wechat/md2wechat.md .claude/skills/md2wechat/
+
+# 或全局（所有项目生效）
+mkdir -p ~/.claude/skills/md2wechat
+cp skills/md2wechat/md2wechat.md ~/.claude/skills/md2wechat/
 ```
 
-重启 Claude Code 后，`/md2wechat` 在所有项目中可用：
+### OpenCode
+
+```bash
+# 项目级
+mkdir -p .opencode/skills/md2wechat
+cp skills/md2wechat/md2wechat.md .opencode/skills/md2wechat/
+
+# 或全局
+mkdir -p ~/.opencode/skills/md2wechat
+cp skills/md2wechat/md2wechat.md ~/.opencode/skills/md2wechat/
+```
+
+### 使用
+
+安装 skill 和 `md2wechat` CLI 后：
 
 ```
 /md2wechat article.md
 ```
-
-Claude 会根据上下文自动运行 `md2wechat` 并传入合适的参数。
-
-## OpenCode 技能
-
-技能定义位于 `.opencode/skills/md2wechat.md`。在 OpenCode 中打开此项目后自动注册。
-
-### 配置方式
-
-1. 将 `md2wechat` 安装为全局工具（参考上方安装说明）
-
-2. 在 OpenCode 中打开此项目——技能自动注册
-
-3. 向 Claude 提问：
-
-> 把这篇文章转成微信公众号 HTML
 
 Claude 会根据上下文自动运行 `md2wechat` 并传入合适的参数。
 
@@ -125,12 +123,9 @@ css_inline.CSSInliner() → CSS 规则转为内联 style="" 属性
 │       ├── __init__.py   # 样式注册表
 │       ├── default.py    # 微信绿色主题
 │       └── github.py     # GitHub 风格主题
-├── .claude/
-│   └── skills/
-│       └── md2wechat.md  # Claude Code 技能定义
-├── .opencode/
-│   └── skills/
-│       └── md2wechat.md  # OpenCode 技能定义
+├── skills/
+│   └── md2wechat/
+│       └── md2wechat.md  # 技能定义（Claude Code / OpenCode 通用）
 ├── pyproject.toml
 └── uv.lock
 ```
