@@ -87,6 +87,7 @@ Once the skill is in place and `md2wechat` CLI is installed, invoke with:
 Or ask in natural language:
 
 > 把这篇文章转成微信公众号 HTML
+>
 > Convert this markdown article to WeChat HTML
 
 Claude will run `md2wechat` with the right arguments based on context.

@@ -87,6 +87,7 @@ cp -r skills/ ~/.opencode/skills/
 也可用自然语言提问：
 
 > 把这篇文章转成微信公众号 HTML
+>
 > Convert this markdown article to WeChat HTML
 
 Claude 会根据上下文自动运行 `md2wechat` 并传入合适的参数。
