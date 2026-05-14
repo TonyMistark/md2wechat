@@ -54,36 +54,33 @@ md2wechat --help                   # list all options
 
 ## Claude Code skill
 
-Configure `/md2wechat` as a slash command in Claude Code.
+This repo includes a Claude Code skill at `.claude/skills/md2wechat.md`. When opened as a Claude Code workspace, `/md2wechat` is available as a slash command.
+
+To use it in other projects, copy the skill file:
+
+```bash
+mkdir -p .claude/skills
+cp .claude/skills/md2wechat.md .claude/skills/
+```
+
+Or install globally for all projects:
+
+```bash
+mkdir -p ~/.claude/skills
+cp .claude/skills/md2wechat.md ~/.claude/skills/
+```
 
 ### Setup
 
 1. Install `md2wechat` as a global tool (see Installation above)
-
-2. Register the slash command — add to `.claude/settings.json` in your project (or `~/.claude/settings.json` for all projects):
-
-```json
-{
-  "hooks": {
-    "SlashCommand": [
-      {
-        "command": "/md2wechat",
-        "description": "Convert a Markdown file to WeChat-compatible HTML",
-        "run": "md2wechat $ARGUMENTS"
-      }
-    ]
-  }
-}
-```
-
-3. Use it in Claude Code:
+2. Ensure the skill file is in `.claude/skills/` or `~/.claude/skills/`
+3. In Claude Code, invoke with:
 
 ```
 /md2wechat article.md
-/md2wechat article.md -s github -o wechat.html
 ```
 
-The `.claude/settings.json` in this repo is pre-configured — if you open this project as your Claude Code workspace, the slash command is available automatically after step 1.
+Claude will run `md2wechat` with the right arguments based on context.
 
 ## OpenCode skill
 
@@ -135,7 +132,8 @@ WeChat's article editor strips `<style>` tags and external stylesheets — only 
 │       ├── default.py    # WeChat green theme
 │       └── github.py     # GitHub theme
 ├── .claude/
-│   └── settings.json     # Claude Code slash command config
+│   └── skills/
+│       └── md2wechat.md  # Claude Code skill definition
 ├── .opencode/
 │   └── skills/
 │       └── md2wechat.md  # OpenCode skill definition

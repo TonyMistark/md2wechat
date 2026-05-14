@@ -54,36 +54,33 @@ md2wechat --help                   # 查看所有选项
 
 ## Claude Code 技能
 
-在 Claude Code 中配置 `/md2wechat` 斜杠命令。
+本仓库包含 Claude Code 技能文件 `.claude/skills/md2wechat.md`。作为 Claude Code 工作区打开此项目后，可直接使用 `/md2wechat` 斜杠命令。
+
+在其他项目中使用，需复制技能文件：
+
+```bash
+mkdir -p .claude/skills
+cp .claude/skills/md2wechat.md .claude/skills/
+```
+
+或全局安装（所有项目生效）：
+
+```bash
+mkdir -p ~/.claude/skills
+cp .claude/skills/md2wechat.md ~/.claude/skills/
+```
 
 ### 配置方式
 
 1. 将 `md2wechat` 安装为全局工具（参考上方安装说明）
-
-2. 注册斜杠命令——添加到项目的 `.claude/settings.json`（或 `~/.claude/settings.json` 全局生效）：
-
-```json
-{
-  "hooks": {
-    "SlashCommand": [
-      {
-        "command": "/md2wechat",
-        "description": "将 Markdown 文件转换为微信公众号 HTML",
-        "run": "md2wechat $ARGUMENTS"
-      }
-    ]
-  }
-}
-```
-
-3. 在 Claude Code 中使用：
+2. 确保技能文件在 `.claude/skills/` 或 `~/.claude/skills/` 中
+3. 在 Claude Code 中调用：
 
 ```
 /md2wechat article.md
-/md2wechat article.md -s github -o wechat.html
 ```
 
-本仓库的 `.claude/settings.json` 已预配置——将此项目作为 Claude Code 工作区打开，完成第 1 步后斜杠命令自动可用。
+Claude 会根据上下文自动运行 `md2wechat` 并传入合适的参数。
 
 ## OpenCode 技能
 
@@ -135,7 +132,8 @@ css_inline.CSSInliner() → CSS 规则转为内联 style="" 属性
 │       ├── default.py    # 微信绿色主题
 │       └── github.py     # GitHub 风格主题
 ├── .claude/
-│   └── settings.json     # Claude Code 斜杠命令配置
+│   └── skills/
+│       └── md2wechat.md  # Claude Code 技能定义
 ├── .opencode/
 │   └── skills/
 │       └── md2wechat.md  # OpenCode 技能定义

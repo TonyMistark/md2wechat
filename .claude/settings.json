@@ -1,11 +1,1 @@
-{
-  "hooks": {
-    "SlashCommand": [
-      {
-        "command": "/md2wechat",
-        "description": "Convert a Markdown file to WeChat-compatible HTML",
-        "run": "md2wechat $ARGUMENTS"
-      }
-    ]
-  }
-}
+{}
