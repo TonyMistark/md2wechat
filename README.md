@@ -54,27 +54,21 @@ md2wechat --help                   # list all options
 
 ## Claude Code skill
 
-This repo includes a Claude Code skill at `.claude/skills/md2wechat.md`. When opened as a Claude Code workspace, `/md2wechat` is available as a slash command.
-
-To use it in other projects, copy the skill file:
-
-```bash
-mkdir -p .claude/skills
-cp .claude/skills/md2wechat.md .claude/skills/
-```
-
-Or install globally for all projects:
-
-```bash
-mkdir -p ~/.claude/skills
-cp .claude/skills/md2wechat.md ~/.claude/skills/
-```
+Claude Code custom skills are defined as markdown files in `.claude/skills/` (project) or `~/.claude/skills/` (global). This repo includes the skill file at `.claude/skills/md2wechat.md`.
 
 ### Setup
 
-1. Install `md2wechat` as a global tool (see Installation above)
-2. Ensure the skill file is in `.claude/skills/` or `~/.claude/skills/`
-3. In Claude Code, invoke with:
+**If you cloned the repo**, the skill is ready automatically — just open this directory as a Claude Code workspace.
+
+**If you installed via `uv tool install`**, download the skill file separately:
+
+```bash
+mkdir -p ~/.claude/skills
+curl -o ~/.claude/skills/md2wechat.md \
+  https://raw.githubusercontent.com/liuliqiu/md2wechat/main/.claude/skills/md2wechat.md
+```
+
+Then restart Claude Code, and `/md2wechat` will be available in all projects:
 
 ```
 /md2wechat article.md

@@ -54,27 +54,21 @@ md2wechat --help                   # 查看所有选项
 
 ## Claude Code 技能
 
-本仓库包含 Claude Code 技能文件 `.claude/skills/md2wechat.md`。作为 Claude Code 工作区打开此项目后，可直接使用 `/md2wechat` 斜杠命令。
-
-在其他项目中使用，需复制技能文件：
-
-```bash
-mkdir -p .claude/skills
-cp .claude/skills/md2wechat.md .claude/skills/
-```
-
-或全局安装（所有项目生效）：
-
-```bash
-mkdir -p ~/.claude/skills
-cp .claude/skills/md2wechat.md ~/.claude/skills/
-```
+Claude Code 的自定义技能通过 markdown 文件定义，放在 `.claude/skills/`（项目级）或 `~/.claude/skills/`（全局）。本仓库已包含技能文件 `.claude/skills/md2wechat.md`。
 
 ### 配置方式
 
-1. 将 `md2wechat` 安装为全局工具（参考上方安装说明）
-2. 确保技能文件在 `.claude/skills/` 或 `~/.claude/skills/` 中
-3. 在 Claude Code 中调用：
+**如果已克隆仓库**，技能自动生效——将此目录作为 Claude Code 工作区打开即可。
+
+**如果通过 `uv tool install` 安装**，需单独下载技能文件：
+
+```bash
+mkdir -p ~/.claude/skills
+curl -o ~/.claude/skills/md2wechat.md \
+  https://raw.githubusercontent.com/liuliqiu/md2wechat/main/.claude/skills/md2wechat.md
+```
+
+重启 Claude Code 后，`/md2wechat` 在所有项目中可用：
 
 ```
 /md2wechat article.md
