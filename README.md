@@ -54,16 +54,20 @@ md2wechat --help                   # list all options
 
 ## Claude Code & OpenCode skill
 
-This repo includes a skill file at `skills/md2wechat/md2wechat.md`. Copy it into your local skills directory to enable `/md2wechat` as a slash command.
+This repo includes a skill file at `skills/md2wechat/SKILL.md`. Copy it into your local skills directory to enable `/md2wechat` as a slash command.
 
 ### Claude Code
 
 ```bash
 # Project-level (only this project)
-cp -r skills/ .claude/skills/
+git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
+cp -r /tmp/md2wechat/skills/ .claude/ && \
+rm -rf /tmp/md2wechat
 
 # Or global (all projects)
-cp -r skills/ ~/.claude/skills/
+git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
+cp -r /tmp/md2wechat/skills/ ~/.claude/ && \
+rm -rf /tmp/md2wechat
 ```
 
 ### OpenCode
@@ -127,7 +131,7 @@ WeChat's article editor strips `<style>` tags and external stylesheets — only 
 │       └── github.py     # GitHub theme
 ├── skills/
 │   └── md2wechat/
-│       └── md2wechat.md  # skill definition (Claude Code / OpenCode)
+│       └── SKILL.md      # skill definition (Claude Code / OpenCode)
 ├── pyproject.toml
 └── uv.lock
 ```

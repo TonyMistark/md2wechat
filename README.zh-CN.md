@@ -54,16 +54,20 @@ md2wechat --help                   # 查看所有选项
 
 ## Claude Code & OpenCode 技能
 
-本仓库提供技能文件 `skills/md2wechat/md2wechat.md`。将其复制到本地的 skills 目录即可启用 `/md2wechat` 斜杠命令。
+本仓库提供技能文件 `skills/md2wechat/SKILL.md`。将其复制到本地的 skills 目录即可启用 `/md2wechat` 斜杠命令。
 
 ### Claude Code
 
 ```bash
 # 项目级（仅当前项目生效）
-cp -r skills/ .claude/skills/
+git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
+cp -r /tmp/md2wechat/skills/ .claude/ && \
+rm -rf /tmp/md2wechat
 
 # 或全局（所有项目生效）
-cp -r skills/ ~/.claude/skills/
+git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
+cp -r /tmp/md2wechat/skills/ ~/.claude/ && \
+rm -rf /tmp/md2wechat
 ```
 
 ### OpenCode
@@ -127,7 +131,7 @@ css_inline.CSSInliner() → CSS 规则转为内联 style="" 属性
 │       └── github.py     # GitHub 风格主题
 ├── skills/
 │   └── md2wechat/
-│       └── md2wechat.md  # 技能定义（Claude Code / OpenCode 通用）
+│       └── SKILL.md      # 技能定义（Claude Code / OpenCode 通用）
 ├── pyproject.toml
 └── uv.lock
 ```
