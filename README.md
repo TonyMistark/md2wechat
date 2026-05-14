@@ -22,7 +22,7 @@ Python >= 3.12. Uses [uv](https://docs.astral.sh/uv/) for dependency management.
 ### Install as a global CLI tool
 
 ```bash
-uv tool install git+https://github.com/TonyMistark/md2wechat
+uv tool install git+https://github.com/liuliqiu/md2wechat
 # or from a local clone:
 uv tool install .
 ```
@@ -37,7 +37,7 @@ md2wechat input.md -o output.html -s github
 ### Install for development
 
 ```bash
-git clone https://github.com/TonyMistark/md2wechat
+git clone https://github.com/liuliqiu/md2wechat
 cd md2wechat
 uv sync
 uv pip install -e .

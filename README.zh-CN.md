@@ -22,7 +22,7 @@ Python >= 3.12。使用 [uv](https://docs.astral.sh/uv/) 管理依赖。
 ### 安装为全局 CLI 工具
 
 ```bash
-uv tool install git+https://github.com/TonyMistark/md2wechat
+uv tool install git+https://github.com/liuliqiu/md2wechat
 # 或从本地仓库安装：
 uv tool install .
 ```
@@ -37,7 +37,7 @@ md2wechat input.md -o output.html -s github
 ### 开发环境安装
 
 ```bash
-git clone https://github.com/TonyMistark/md2wechat
+git clone https://github.com/liuliqiu/md2wechat
 cd md2wechat
 uv sync
 uv pip install -e .
