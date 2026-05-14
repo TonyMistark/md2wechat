@@ -9,7 +9,7 @@ import css_inline
 import markdown
 from pygments.formatters import HtmlFormatter
 
-from styles import DEFAULT_STYLE, get_style, list_styles
+from md2wechat.styles import DEFAULT_STYLE, get_style, list_styles
 
 HTML_TEMPLATE = """<!DOCTYPE html>
 <html>

@@ -10,4 +10,4 @@ dependencies = [
 ]
 
 [project.scripts]
-md2wechat = "md2wechat:main"
+md2wechat = "md2wechat.cli:main"
