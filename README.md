@@ -60,14 +60,10 @@ This repo includes a skill file at `skills/md2wechat/SKILL.md`. Copy it into you
 
 ```bash
 # Project-level (only this project)
-git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
-cp -r /tmp/md2wechat/skills/ .claude/ && \
-rm -rf /tmp/md2wechat
+cp -r skills/ .claude/skills/
 
 # Or global (all projects)
-git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
-cp -r /tmp/md2wechat/skills/ ~/.claude/ && \
-rm -rf /tmp/md2wechat
+cp -r skills/ ~/.claude/skills/
 ```
 
 ### OpenCode

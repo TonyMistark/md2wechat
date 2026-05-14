@@ -60,14 +60,10 @@ md2wechat --help                   # 查看所有选项
 
 ```bash
 # 项目级（仅当前项目生效）
-git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
-cp -r /tmp/md2wechat/skills/ .claude/ && \
-rm -rf /tmp/md2wechat
+cp -r skills/ .claude/skills/
 
 # 或全局（所有项目生效）
-git clone --depth 1 https://github.com/liuliqiu/md2wechat /tmp/md2wechat && \
-cp -r /tmp/md2wechat/skills/ ~/.claude/ && \
-rm -rf /tmp/md2wechat
+cp -r skills/ ~/.claude/skills/
 ```
 
 ### OpenCode
