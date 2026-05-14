@@ -1,84 +1,150 @@
 # md2wechat
 
-将 Markdown 文件转换为微信公众号兼容的 HTML，通过 CSS inlining 确保样式在微信中正常显示。
+Convert Markdown files to WeChat Official Account (微信公众号) compatible HTML, with CSS inlining so styles survive WeChat's editor.
 
-## 特性
+## Features
 
-- 支持表格、围栏代码块、目录等 GFM 扩展语法
-- **代码语法高亮**，基于 Pygments，支持 Python、JavaScript 等 500+ 语言
-- **多种样式主题**：`default`（微信绿）和 `github`（GitHub 风格），通过 `-s` 参数切换
-- 自动将 `<style>` 标签中的 CSS 内联为 `style=""` 属性，兼容微信文章编辑器
-- 自动提取第一个一级标题作为页面标题
-- 响应式图片、代码块横向滚动、表格斑马条纹
+- GFM extensions: tables, fenced code blocks, TOC
+- **Syntax highlighting** via Pygments (500+ languages)
+- **Style themes**: `default` (WeChat green) and `github` — switch with `-s`
+- **CSS inlining** via css-inline (Rust) — WeChat strips `<style>` tags, only inline styles work
+- Auto-extracts first H1 as page title
+- Responsive images, code block horizontal scroll, zebra-striped tables
 
-## 安装
+## Requirements
 
-需要 Python >= 3.12，使用 [uv](https://docs.astral.sh/uv/) 管理依赖：
+Python >= 3.12. Uses [uv](https://docs.astral.sh/uv/) for dependency management.
+
+## Installation
+
+### Install as a global CLI tool
 
 ```bash
+uv tool install git+https://github.com/ice/md2wechat
+# or from a local clone:
+uv tool install .
+```
+
+After install, `md2wechat` is available anywhere:
+
+```bash
+md2wechat input.md
+md2wechat input.md -o output.html -s github
+```
+
+### Install for development
+
+```bash
+git clone https://github.com/ice/md2wechat
+cd md2wechat
 uv sync
+uv pip install -e .
 ```
 
-## 使用方法
+## CLI usage
 
 ```bash
-# 基础用法，默认使用 default 样式
-uv run python main.py input.md
-
-# 指定输出路径
-uv run python main.py input.md -o output.html
-
-# 使用 GitHub 风格样式
-uv run python main.py input.md -s github
-
-# 查看可用样式
-uv run python main.py --help
+md2wechat input.md                 # default style → input.html
+md2wechat input.md -o output.html  # custom output path
+md2wechat input.md -s github       # GitHub theme
+md2wechat --help                   # list all options
 ```
 
-## 工作流程
+## Claude Code skill
 
-```
-Markdown 文件
-    │
-    ▼
-读取 UTF-8 文本 → 提取标题（首个 H1 或文件名）
-    │
-    ▼
-markdown.markdown() 转换 → 表格 + 代码块 + 代码高亮 + 目录
-    │
-    ▼
-嵌入 HTML 模板 → <style> 包含完整 CSS
-    │
-    ▼
-css_inline.CSSInliner() → CSS 规则转为内联 style="" 属性
-    │
-    ▼
-输出 WeChat 兼容的 HTML 文件
-```
+Configure `/md2wechat` as a slash command in Claude Code.
 
-微信文章编辑器会丢弃 `<style>` 标签和外部样式表，只有内联样式才能生效，因此 CSS inlining 是核心步骤。
+### Setup
 
-## 项目结构
+1. Install `md2wechat` as a global tool (see Installation above)
 
-```
-├── main.py           # 主程序（CLI + 转换逻辑）
-├── styles/           # 样式主题包
-│   ├── __init__.py   # 样式注册表
-│   ├── default.py    # 微信绿色主题
-│   └── github.py     # GitHub 风格主题
-├── pyproject.toml    # 项目配置与依赖声明
-└── uv.lock           # 锁定依赖版本
+2. Register the slash command — add to `.claude/settings.json` in your project (or `~/.claude/settings.json` for all projects):
+
+```json
+{
+  "hooks": {
+    "SlashCommand": [
+      {
+        "command": "/md2wechat",
+        "description": "Convert a Markdown file to WeChat-compatible HTML",
+        "run": "md2wechat $ARGUMENTS"
+      }
+    ]
+  }
+}
 ```
 
-## 依赖
+3. Use it in Claude Code:
 
-| 依赖 | 说明 |
-|------|------|
-| [markdown](https://python-markdown.github.io/) | Markdown 转 HTML，启用 tables / fenced_code / codehilite / toc 扩展 |
-| [css-inline](https://github.com/Stranger6667/css-inline) | 基于 Rust 的 CSS 内联引擎 |
-| [pygments](https://pygments.org/) | 代码语法高亮，通过 codehilite 扩展集成 |
+```
+/md2wechat article.md
+/md2wechat article.md -s github -o wechat.html
+```
 
-## 未来规划
+The `.claude/settings.json` in this repo is pre-configured — if you open this project as your Claude Code workspace, the slash command is available automatically after step 1.
 
-- 支持加载外部 CSS 文件作为自定义样式
+## OpenCode skill
 
+The skill definition lives in `.opencode/skills/md2wechat.md`. OpenCode picks it up automatically when this project is opened as workspace.
+
+### Setup
+
+1. Install `md2wechat` as a global tool (see Installation above)
+
+2. Open this project in OpenCode — the skill registers automatically
+
+3. Ask Claude to convert:
+
+> Convert this markdown article to WeChat HTML
+
+Claude will run `md2wechat` with the right arguments based on context.
+
+## How it works
+
+```
+Markdown file
+    │
+    ▼
+Read UTF-8 text → Extract title (first H1 or filename)
+    │
+    ▼
+markdown.markdown() → tables, fenced_code, codehilite, TOC
+    │
+    ▼
+Embed HTML template → <style> with full CSS + Pygments theme
+    │
+    ▼
+css_inline.CSSInliner() → CSS rules → inline style="" attributes
+    │
+    ▼
+WeChat-compatible HTML file
+```
+
+WeChat's article editor strips `<style>` tags and external stylesheets — only inline styles survive, so CSS inlining is the critical step.
+
+## Project structure
+
+```
+├── md2wechat/
+│   ├── __init__.py       # package entry, re-exports CLI
+│   ├── cli.py            # CLI + conversion logic
+│   └── styles/
+│       ├── __init__.py   # style registry
+│       ├── default.py    # WeChat green theme
+│       └── github.py     # GitHub theme
+├── .claude/
+│   └── settings.json     # Claude Code slash command config
+├── .opencode/
+│   └── skills/
+│       └── md2wechat.md  # OpenCode skill definition
+├── pyproject.toml
+└── uv.lock
+```
+
+## Dependencies
+
+| Package | Role |
+|---------|------|
+| [markdown](https://python-markdown.github.io/) | Markdown → HTML (tables, fenced_code, codehilite, toc) |
+| [css-inline](https://github.com/Stranger6667/css-inline) | Rust-powered CSS inlining |
+| [pygments](https://pygments.org/) | Syntax highlighting (via codehilite) |
