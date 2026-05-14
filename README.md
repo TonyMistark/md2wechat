@@ -60,33 +60,34 @@ This repo includes a skill file at `skills/md2wechat/md2wechat.md`. Copy it into
 
 ```bash
 # Project-level (only this project)
-mkdir -p .claude/skills/md2wechat
-cp skills/md2wechat/md2wechat.md .claude/skills/md2wechat/
+cp -r skills/ .claude/skills/
 
 # Or global (all projects)
-mkdir -p ~/.claude/skills/md2wechat
-cp skills/md2wechat/md2wechat.md ~/.claude/skills/md2wechat/
+cp -r skills/ ~/.claude/skills/
 ```
 
 ### OpenCode
 
 ```bash
 # Project-level
-mkdir -p .opencode/skills/md2wechat
-cp skills/md2wechat/md2wechat.md .opencode/skills/md2wechat/
+cp -r skills/ .opencode/skills/
 
 # Or global
-mkdir -p ~/.opencode/skills/md2wechat
-cp skills/md2wechat/md2wechat.md ~/.opencode/skills/md2wechat/
+cp -r skills/ ~/.opencode/skills/
 ```
 
 ### Usage
 
-Once the skill is in place and `md2wechat` CLI is installed:
+Once the skill is in place and `md2wechat` CLI is installed, invoke with:
 
 ```
 /md2wechat article.md
 ```
+
+Or ask in natural language:
+
+> 把这篇文章转成微信公众号 HTML
+> Convert this markdown article to WeChat HTML
 
 Claude will run `md2wechat` with the right arguments based on context.
 

@@ -60,24 +60,20 @@ md2wechat --help                   # 查看所有选项
 
 ```bash
 # 项目级（仅当前项目生效）
-mkdir -p .claude/skills/md2wechat
-cp skills/md2wechat/md2wechat.md .claude/skills/md2wechat/
+cp -r skills/ .claude/skills/
 
 # 或全局（所有项目生效）
-mkdir -p ~/.claude/skills/md2wechat
-cp skills/md2wechat/md2wechat.md ~/.claude/skills/md2wechat/
+cp -r skills/ ~/.claude/skills/
 ```
 
 ### OpenCode
 
 ```bash
 # 项目级
-mkdir -p .opencode/skills/md2wechat
-cp skills/md2wechat/md2wechat.md .opencode/skills/md2wechat/
+cp -r skills/ .opencode/skills/
 
 # 或全局
-mkdir -p ~/.opencode/skills/md2wechat
-cp skills/md2wechat/md2wechat.md ~/.opencode/skills/md2wechat/
+cp -r skills/ ~/.opencode/skills/
 ```
 
 ### 使用
@@ -87,6 +83,11 @@ cp skills/md2wechat/md2wechat.md ~/.opencode/skills/md2wechat/
 ```
 /md2wechat article.md
 ```
+
+也可用自然语言提问：
+
+> 把这篇文章转成微信公众号 HTML
+> Convert this markdown article to WeChat HTML
 
 Claude 会根据上下文自动运行 `md2wechat` 并传入合适的参数。
 
